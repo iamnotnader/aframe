@@ -57358,7 +57358,8 @@ module.exports.Component = registerComponent('look-controls', {
     var yawObject = this.yawObject;
     var previousMouseEvent = this.previousMouseEvent;
 
-    if (!this.mouseDown || !this.data.enabled) { return; }
+    if (//!this.mouseDown ||
+        !this.data.enabled) { return; }
 
     var movementX = event.movementX || event.mozMovementX;
     var movementY = event.movementY || event.mozMovementY;
