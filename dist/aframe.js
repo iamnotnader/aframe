@@ -57358,7 +57358,7 @@ module.exports.Component = registerComponent('look-controls', {
     var yawObject = this.yawObject;
     var previousMouseEvent = this.previousMouseEvent;
 
-    if (//!this.mouseDown ||
+    if (this.mouseDown ||
         !this.data.enabled) { return; }
 
     var movementX = event.movementX || event.mozMovementX;
@@ -61379,10 +61379,10 @@ module.exports = registerElement('a-scene', {
         if (!camera || !canvas) { return; }
 
         // Update canvas if canvas was provided by A-Frame.
-        if (!isMobile && canvas.dataset.aframeDefault) {
-          canvas.style.width = '100%';
-          canvas.style.height = '100%';
-        }
+        //if (!isMobile && canvas.dataset.aframeDefault) {
+          //canvas.style.width = '100%';
+          //canvas.style.height = '100%';
+        //}
 
         // Update camera.
         size = getCanvasSize(canvas, isMobile);
