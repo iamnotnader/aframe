@@ -1,3 +1,4 @@
+var resizeCallCount = 0;
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.AFRAME = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 'use strict';
 // For more information about browser field, check out the browser field at https://github.com/substack/browserify-handbook#browser-field.
@@ -61329,6 +61330,7 @@ var isMobile = utils.isMobile();
  * @member {object} systems - Registered instantiated systems.
  * @member {number} time
  */
+// This is a dirty hack to prevent resizing on scroll in iOS.
 module.exports = registerElement('a-scene', {
   prototype: Object.create(AEntity.prototype, {
     defaultComponents: {
@@ -61482,6 +61484,10 @@ module.exports = registerElement('a-scene', {
 
     resize: {
       value: function () {
+        if (resizeCallCount >= 3) {
+          return;
+        }
+        resizeCallCount++;
         var camera = this.camera;
         var canvas = this.canvas;
         var size;
